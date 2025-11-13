@@ -1,0 +1,162 @@
+# -----------------------------
+# PYTHON
+# -----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+.eggs/
+.Python
+pythonenv*
+env/
+venv/
+ENV/
+env.bak/
+.venv/
+
+# Virtual environment
+venv/
+.env
+.env.local
+.env.*.local
+.envrc
+
+# -----------------------------
+# DATABASE / DATA FILES
+# -----------------------------
+*.db
+*.sqlite3
+*.sqlite
+*.csv
+*.parquet
+*.log
+*.bak
+*.sql
+*.dump
+
+# Ignore any generated data or temp folders
+/data/
+tmp/
+temp/
+logs/
+cache/
+.notebooks/
+
+# -----------------------------
+# JUPYTER / NOTEBOOKS
+# -----------------------------
+.ipynb_checkpoints
+*.ipynb_checkpoints
+*.nbconvert.ipynb
+
+# -----------------------------
+# IDE / TEXT EDITORS
+# -----------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# -----------------------------
+# DBT
+# -----------------------------
+dbt_modules/
+target/
+logs/
+manifest.json
+run_results.json
+
+# -----------------------------
+# STREAMLIT
+# -----------------------------
+.streamlit/secrets.toml
+.streamlit/config.toml
+# Cached Streamlit states
+.streamlit/cache/
+.streamlit/static/
+
+# -----------------------------
+# AIRFLOW
+# -----------------------------
+airflow/logs/
+airflow/__pycache__/
+airflow/airflow.db
+airflow/airflow.cfg
+airflow/unittests.cfg
+airflow/*.pid
+airflow/dags/__pycache__/
+airflow/plugins/__pycache__/
+airflow/logs/*
+
+# -----------------------------
+# DOCKER / COMPOSE
+# -----------------------------
+*.pid
+*.tar
+*.bak
+docker-compose.override.yml
+.dockerignore
+.env.docker
+
+# -----------------------------
+# ML / PROPHET / MLFLOW
+# -----------------------------
+mlruns/
+model/
+models/
+notebooks/
+mlflow.db
+__pycache__/
+*.pkl
+*.joblib
+*.h5
+*.model
+
+# -----------------------------
+# GREAT EXPECTATIONS
+# -----------------------------
+great_expectations/uncommitted/
+great_expectations/plugins/
+great_expectations/validations/
+great_expectations/checkpoints/
+great_expectations/.ge_store_backend_id
+great_expectations/.ge_uuid
+
+# -----------------------------
+# TESTS / CI
+# -----------------------------
+.coverage
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+htmlcov/
+junit.xml
+
+# -----------------------------
+# SYSTEM FILES
+# -----------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -----------------------------
+# BACKUPS / EXPORTS
+# -----------------------------
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.bak
+*.tmp
+*.swp
+*.swo
+*.orig
+
+# Keep README and architecture image
+!docs/architecture.png
+!README.md

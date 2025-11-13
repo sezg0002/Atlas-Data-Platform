@@ -1,0 +1,26 @@
+# Core data & web
+pandas
+requests
+yfinance
+python-dotenv
+streamlit
+plotly
+
+# Database & ORM
+SQLAlchemy>=2.0
+psycopg2-binary
+
+# Machine Learning / Forecasting
+prophet
+mlflow
+
+# Data Engineering / Orchestration
+apache-airflow==2.9.2
+dbt-core
+dbt-postgres
+
+# Data Quality
+great-expectations
+
+# Cloud
+boto3

@@ -1,0 +1,14 @@
+
+name: "global_data_intelligence"
+version: "1.0.0"
+config-version: 2
+
+profile: "gdi_postgres"
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  global_data_intelligence:
+    +materialized: view

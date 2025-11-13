@@ -1,0 +1,13 @@
+
+gdi_postgres:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: gdi_user
+      password: gdi_password
+      port: 5432
+      dbname: gdi_db
+      schema: public
+      threads: 1
