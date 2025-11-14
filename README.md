@@ -57,37 +57,44 @@ flowchart LR
   subgraph S[Sources de données]
     WB[World Bank API]
     YF[Yahoo Finance (yfinance)]
+    
   end
 
   %% ========= ETL + STORAGE =========
   subgraph I[Ingestion et Stockage]
-    ETL[Python ETL (worldbank.py / yfinance_data.py)]
+    ETL[Python ETL : worldbank.py, yfinance_data.py]
     DB[(PostgreSQL Database)]
+    
   end
 
   %% ========= DATA QUALITY =========
   subgraph Q[Qualité des données]
     GE[Great Expectations]
+    
   end
 
   %% ========= TRANSFORMATION (DBT) =========
   subgraph T[Transformation analytique]
-    DBT[dbt Models (staging + marts)]
+    DBT[dbt Models : staging + marts]
+    
   end
 
   %% ========= MACHINE LEARNING =========
   subgraph M[Machine Learning]
     ML[Prophet Forecasting]
+    
   end
 
   %% ========= DASHBOARD =========
   subgraph C[Visualisation]
     ST[Streamlit Dashboard]
+    
   end
 
   %% ========= ORCHESTRATION =========
   subgraph O[Orchestration]
     AF[Airflow DAG]
+    
   end
 
   %% ========= FLOWS =========
