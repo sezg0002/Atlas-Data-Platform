@@ -52,60 +52,45 @@ The project covers the complete lifecycle of a data product:
 
 ```mermaid
 flowchart LR
-  %% ===========================================
-  %%                 SOURCES
-  %% ===========================================
+
+  %% ========= SOURCES =========
   subgraph S[Sources de données]
     WB[World Bank API]
     YF[Yahoo Finance (yfinance)]
   end
 
-  %% ===========================================
-  %%        INGESTION & STOCKAGE (ETL)
-  %% ===========================================
-  subgraph I[Ingestion & Stockage]
-    ETL[Python ETL<br/>(etl/worldbank.py<br/>etl/yfinance_data.py)]
-    DB[(PostgreSQL<br/>Database)]
+  %% ========= ETL + STORAGE =========
+  subgraph I[Ingestion et Stockage]
+    ETL[Python ETL (worldbank.py / yfinance_data.py)]
+    DB[(PostgreSQL Database)]
   end
 
-  %% ===========================================
-  %%        QUALITÉ DES DONNÉES
-  %% ===========================================
+  %% ========= DATA QUALITY =========
   subgraph Q[Qualité des données]
-    GE[Great Expectations<br/>(validation)]
+    GE[Great Expectations]
   end
 
-  %% ===========================================
-  %%     TRANSFORMATION ANALYTIQUE (DBT)
-  %% ===========================================
+  %% ========= TRANSFORMATION (DBT) =========
   subgraph T[Transformation analytique]
-    DBT[dbt Models<br/>stg_fact_indicator.sql<br/>agg_kpi_by_country.sql]
+    DBT[dbt Models (staging + marts)]
   end
 
-  %% ===========================================
-  %%       MACHINE LEARNING & MODELS
-  %% ===========================================
+  %% ========= MACHINE LEARNING =========
   subgraph M[Machine Learning]
-    ML[Prophet Forecasting<br/>(ml/)]
+    ML[Prophet Forecasting]
   end
 
-  %% ===========================================
-  %%     VISUALISATION & CONSUMPTION LAYER
-  %% ===========================================
-  subgraph C[Consommation & Visualisation]
-    ST[Streamlit Dashboard<br/>(dashboard/)]
+  %% ========= DASHBOARD =========
+  subgraph C[Visualisation]
+    ST[Streamlit Dashboard]
   end
 
-  %% ===========================================
-  %%                 ORCHESTRATION
-  %% ===========================================
+  %% ========= ORCHESTRATION =========
   subgraph O[Orchestration]
-    AF[Airflow DAG<br/>(gdi_pipeline_dag.py)]
+    AF[Airflow DAG]
   end
 
-  %% ===========================================
-  %%             FLOWS DE DONNÉES
-  %% ===========================================
+  %% ========= FLOWS =========
   WB --> ETL
   YF --> ETL
   ETL --> DB
@@ -117,15 +102,13 @@ flowchart LR
   DBT --> ST
   ML --> ST
 
-  %% ===========================================
-  %%             ORCHESTRATION AIRFLOW
-  %% ===========================================
   AF --> ETL
   AF --> GE
   AF --> DBT
   AF --> ML
   AF --> ST
 ```
+
 
 ### Architecture Overview
 
