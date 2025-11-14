@@ -50,6 +50,83 @@ The project covers the complete lifecycle of a data product:
 
 ## Architecture
 
+```mermaid
+flowchart LR
+  %% ===========================================
+  %%                 SOURCES
+  %% ===========================================
+  subgraph S[Sources de données]
+    WB[World Bank API]
+    YF[Yahoo Finance (yfinance)]
+  end
+
+  %% ===========================================
+  %%        INGESTION & STOCKAGE (ETL)
+  %% ===========================================
+  subgraph I[Ingestion & Stockage]
+    ETL[Python ETL<br/>(etl/worldbank.py<br/>etl/yfinance_data.py)]
+    DB[(PostgreSQL<br/>Database)]
+  end
+
+  %% ===========================================
+  %%        QUALITÉ DES DONNÉES
+  %% ===========================================
+  subgraph Q[Qualité des données]
+    GE[Great Expectations<br/>(validation)]
+  end
+
+  %% ===========================================
+  %%     TRANSFORMATION ANALYTIQUE (DBT)
+  %% ===========================================
+  subgraph T[Transformation analytique]
+    DBT[dbt Models<br/>stg_fact_indicator.sql<br/>agg_kpi_by_country.sql]
+  end
+
+  %% ===========================================
+  %%       MACHINE LEARNING & MODELS
+  %% ===========================================
+  subgraph M[Machine Learning]
+    ML[Prophet Forecasting<br/>(ml/)]
+  end
+
+  %% ===========================================
+  %%     VISUALISATION & CONSUMPTION LAYER
+  %% ===========================================
+  subgraph C[Consommation & Visualisation]
+    ST[Streamlit Dashboard<br/>(dashboard/)]
+  end
+
+  %% ===========================================
+  %%                 ORCHESTRATION
+  %% ===========================================
+  subgraph O[Orchestration]
+    AF[Airflow DAG<br/>(gdi_pipeline_dag.py)]
+  end
+
+  %% ===========================================
+  %%             FLOWS DE DONNÉES
+  %% ===========================================
+  WB --> ETL
+  YF --> ETL
+  ETL --> DB
+
+  DB --> GE
+  GE --> DBT
+
+  DBT --> ML
+  DBT --> ST
+  ML --> ST
+
+  %% ===========================================
+  %%             ORCHESTRATION AIRFLOW
+  %% ===========================================
+  AF --> ETL
+  AF --> GE
+  AF --> DBT
+  AF --> ML
+  AF --> ST
+```
+
 ### Architecture Overview
 
 The following diagram illustrates the core architecture of Atlas Data Platform:
