@@ -1,13 +1,13 @@
 # Atlas Data Platform
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![Python](https://img. shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-Data%20App-FF4B4B.svg)](https://streamlit.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-316192.svg)](https://www.postgresql.org/)
+[![PostgreSQL](https://img. shields.io/badge/PostgreSQL-Database-316192.svg)](https://www.postgresql.org/)
 [![Airflow](https://img.shields.io/badge/Apache%20Airflow-Orchestration-017CEE.svg)](https://airflow.apache.org/)
 [![dbt](https://img.shields.io/badge/dbt-Analytics%20Modeling-FF694B.svg)](https://www.getdbt.com/)
-[![Great Expectations](https://img.shields.io/badge/Great%20Expectations-Data%20Quality-FFD700.svg)](https://greatexpectations.io/)
-[![Prophet](https://img.shields.io/badge/Prophet-Forecasting-8A2BE2.svg)](https://facebook.github.io/prophet/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Great Expectations](https://img. shields.io/badge/Great%20Expectations-Data%20Quality-FFD700.svg)](https://greatexpectations.io/)
+[![Prophet](https://img. shields.io/badge/Prophet-Forecasting-8A2BE2.svg)](https://facebook. github.io/prophet/)
+[![License](https://img. shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
@@ -15,36 +15,40 @@
 
 **Harun SEZGIN**  
 Data Engineering & Analytics Enthusiast  
-[LinkedIn](https://www.linkedin.com/in/harun-sezgin-925a2924b/) · [GitHub](https://github.com/sezg0002)
+[LinkedIn](https://www. linkedin.com/in/harun-sezgin-925a2924b/) · [GitHub](https://github.com/sezg0002)
 
 ---
 
 ## Overview
 
-Atlas Data Platform is an end-to-end data intelligence product.
+Atlas Data Platform is an end-to-end data intelligence product designed with production-grade architecture patterns. 
 
-The project covers the complete lifecycle of a data product:
+The project covers the complete lifecycle of a modern data product:
 
-1. Ingesting external economic and financial data from public APIs.  
-2. Loading and structuring the data into a PostgreSQL data warehouse.  
-3. Transforming raw data into analytics-ready models with dbt.  
-4. Validating data quality using Great Expectations.  
-5. Orchestrating the workflow with Apache Airflow.  
-6. Training a forecasting model (Prophet) to predict future trends.  
-7. Exposing insights through an interactive Streamlit dashboard.
+1. **Ingesting** external economic and financial data from public APIs
+2. **Loading** and structuring data into a PostgreSQL data warehouse
+3. **Transforming** raw data into analytics-ready models with dbt
+4. **Validating** data quality using Great Expectations
+5. **Orchestrating** the workflow with Apache Airflow
+6. **Forecasting** future trends with Prophet ML models
+7. **Visualizing** insights through an interactive Streamlit dashboard
 
 ---
 
 ## Key Features
 
-- **End-to-end pipeline** from ingestion to visualization, fully reproducible locally.  
-- **Modern data stack** combining PostgreSQL, dbt, Airflow, Great Expectations and Streamlit.  
-- **Economic and financial indicators** collected from real public APIs.  
-- **Dimensional data model** (fact and dimension tables) implemented in PostgreSQL.  
-- **dbt models** creating clean staging and aggregated analytics layers.  
-- **Data quality checks** implemented as Great Expectations validations.  
-- **Time-series forecasting** with Prophet, integrated directly into the dashboard.  
-- **Containerized database** using Docker Compose for easy setup.  
+- ✅ **End-to-end pipeline** from ingestion to visualization, fully reproducible locally
+- ✅ **Modern data stack** combining PostgreSQL, dbt, Airflow, Great Expectations and Streamlit
+- ✅ **Modular architecture** with clean separation of concerns and reusable components
+- ✅ **Economic and financial indicators** collected from real public APIs
+- ✅ **Dimensional data model** (fact and dimension tables) implemented in PostgreSQL
+- ✅ **dbt models** with staging, marts, documentation and tests
+- ✅ **Comprehensive data quality checks** with referential integrity validation
+- ✅ **Time-series forecasting** with Prophet, including cross-validation metrics
+- ✅ **Professional dashboard** with tabs, interactive charts and model evaluation
+- ✅ **Containerized database** using Docker Compose for easy setup
+- ✅ **Structured logging** throughout the ETL pipeline
+- ✅ **CI/CD ready** with GitHub Actions workflow
 
 ---
 
@@ -65,6 +69,7 @@ The following diagram illustrates the core architecture of Atlas Data Platform:
                 └────────────┬───────────────┘
                              │
                        ETL (Python)
+                       + Logging & Retry
                              │
                              ▼
                 ┌────────────────────────────┐
@@ -72,64 +77,68 @@ The following diagram illustrates the core architecture of Atlas Data Platform:
                 │  (Fact & Dimension Tables)  │
                 └────────────┬───────────────┘
                              │
-                     dbt Models & Views
+                     dbt Models & Tests
+                     (Staging → Marts)
                              │
                              ▼
                 ┌────────────────────────────┐
                 │ Great Expectations Checks   │
+                │  + Referential Integrity    │
                 └────────────┬───────────────┘
                              │
                              ▼
                 ┌────────────────────────────┐
                 │ Prophet Forecasting (ML)    │
-                │ Tracked via MLflow (option) │
+                │  + Cross-Validation Metrics │
                 └────────────┬───────────────┘
                              │
                              ▼
                 ┌────────────────────────────┐
-                │ Streamlit Dashboard         │
+                │   Streamlit Dashboard       │
+                │  (Modular Components)       │
                 └────────────────────────────┘
 ```
 
 ### Components
 
-- **ETL Layer (Python)**: Extracts data from external APIs, performs basic cleaning/transformation, and loads it into the warehouse.  
-- **PostgreSQL Warehouse**: Stores data using a dimensional model (fact and dimension tables).  
-- **dbt Models**: Build a semantic layer on top of raw tables, creating staging and aggregated models used for analytics.  
-- **Great Expectations**: Ensures that data loaded into the warehouse respects basic quality rules (no nulls on key fields, valid value ranges, etc.).  
-- **Orchestration (Airflow)**: Defines and schedules the pipeline tasks (ETL, validation, dbt runs).  
-- **ML Layer (Prophet)**: Trains a simple time-series forecasting model for GDP per country.  
-- **Visualization (Streamlit)**: Offers an interactive interface to explore data, KPIs and forecasting results.
+| Component | Description |
+|-----------|-------------|
+| **ETL Layer** | Python-based extraction with logging, retry logic, and batch inserts |
+| **PostgreSQL Warehouse** | Dimensional model with fact and dimension tables |
+| **dbt Models** | Staging and marts layers with documentation and tests |
+| **Great Expectations** | 15+ validation checks including referential integrity |
+| **Orchestration** | Airflow DAG for automated pipeline execution |
+| **ML Layer** | Prophet forecasting with cross-validation and metrics |
+| **Dashboard** | Modular Streamlit app with tabs and interactive visualizations |
 
 ---
 
 ## Tech Stack
 
-| Layer              | Technology                                      | Description                                      |
-|--------------------|--------------------------------------------------|--------------------------------------------------|
-| Orchestration      | Apache Airflow                                  | Manages ETL and dbt job scheduling              |
-| Data Modeling      | dbt (Postgres adapter)                          | Transforms raw tables into analytics models     |
-| Data Quality       | Great Expectations                              | Data validation and expectations framework      |
-| Database           | PostgreSQL                                      | Central data warehouse                          |
-| ETL                | Python, Pandas, SQLAlchemy, yfinance, requests | Data extraction and ingestion                   |
-| Forecasting / ML   | Prophet, MLflow (optional)                      | GDP time-series predictions and experiment tracking |
-| Visualization      | Streamlit, Plotly                               | Interactive analytics dashboard                 |
-| Environment / Dev  | Docker Compose, virtualenv                      | Local reproducible environment                  |
+| Layer | Technology | Description |
+|-------|------------|-------------|
+| **Orchestration** | Apache Airflow | Manages ETL and dbt job scheduling |
+| **Data Modeling** | dbt (Postgres adapter) | Transforms raw tables into analytics models |
+| **Data Quality** | Great Expectations | Data validation and expectations framework |
+| **Database** | PostgreSQL 15 | Central data warehouse |
+| **ETL** | Python, Pandas, SQLAlchemy | Data extraction and ingestion with logging |
+| **Forecasting** | Prophet | GDP time-series predictions with metrics |
+| **Visualization** | Streamlit, Plotly | Interactive analytics dashboard |
+| **Environment** | Docker Compose, virtualenv | Local reproducible environment |
+| **CI/CD** | GitHub Actions | Automated testing and linting |
 
 ---
 
 ## Data Sources
 
-Atlas Data Platform currently uses two main types of external data:
+Atlas Data Platform uses two main external data sources:
 
-1. **Macroeconomic data** (GDP per capita, etc.) from the World Bank API.  
-2. **Financial market data** (index prices such as SPY) from Yahoo Finance via the `yfinance` library.
+| Source | Type | Description |
+|--------|------|-------------|
+| **World Bank API** | Macroeconomic | GDP per capita by country (2000-2023) |
+| **Yahoo Finance** | Financial | Market indices (SPY) via `yfinance` |
 
-These sources are intentionally chosen for:
-
-- Their public availability.  
-- Their relevance for both economic and financial analysis.  
-- Their suitability for time-series analysis and forecasting.
+These sources were chosen for their public availability, relevance for analysis, and suitability for time-series forecasting. 
 
 ---
 
@@ -139,47 +148,92 @@ These sources are intentionally chosen for:
 atlas-data-platform/
 │
 ├── etl/
-│   ├── run_etl.py             # Main orchestration of the ETL pipeline
-│   ├── worldbank.py           # Extraction of macroeconomic indicators
-│   ├── yfinance_data.py       # Extraction of financial market data
-│   ├── load_to_db.py          # Loading and upserting into PostgreSQL
-│   └── config.py              # Database and environment configuration
+│   ├── __init__.py
+│   ├── run_etl.py             # Main ETL orchestration
+│   ├── worldbank. py           # World Bank API extraction
+│   ├── yfinance_data.py       # Yahoo Finance extraction
+│   ├── load_to_db.py          # Batch loading to PostgreSQL
+│   ├── config.py              # Database configuration
+│   ├── logger.py              # Centralized logging
+│   └── utils.py               # Retry decorator & utilities
 │
 ├── ml/
-│   └── forecast_gdp.py        # Prophet-based GDP forecasting
+│   ├── __init__. py
+│   └── forecast_gdp.py        # Prophet forecasting with metrics
 │
 ├── validation/
-│   └── run_ge_checks.py       # Great Expectations data quality checks
+│   ├── __init__. py
+│   └── run_ge_checks.py       # Enhanced GE validation suite
 │
 ├── dashboard/
-│   └── app.py                 # Streamlit dashboard application
+│   ├── __init__.py
+│   ├── app. py                 # Main Streamlit application
+│   ├── config.py              # Dashboard configuration
+│   ├── database.py            # Database queries & caching
+│   ├── components/
+│   │   ├── __init__.py
+│   │   ├── _imports.py        # Centralized imports helper
+│   │   ├── header.py          # Header component
+│   │   ├── sidebar.py         # Filters sidebar
+│   │   ├── kpis.py            # KPI cards
+│   │   ├── charts.py          # Plotly charts
+│   │   ├── statistics.py      # Statistics section
+│   │   ├── forecast.py        # Prophet forecast section
+│   │   └── footer.py          # Footer component
+│   └── utils/
+│       ├── __init__.py
+│       └── formatters.py      # Number/date formatters
 │
 ├── dbt_project/
-│   ├── models/                # dbt models (staging and aggregates)
-│   │   ├── stg_fact_indicator.sql
-│   │   └── agg_kpi_by_country.sql
-│   └── dbt_project.yml        # dbt project configuration
+│   ├── dbt_project.yml        # dbt configuration
+│   ├── models/
+│   │   ├── staging/
+│   │   │   ├── _staging.yml   # Sources & documentation
+│   │   │   ├── stg_fact_indicator. sql
+│   │   │   └── stg_dim_country.sql
+│   │   └── marts/
+│   │       ├── _marts.yml     # Model documentation & tests
+│   │       ├── agg_kpi_by_country.sql
+│   │       ├── agg_yearly_trends.sql
+│   │       └── agg_country_comparison.sql
+│   └── macros/
+│       └── calculate_growth.sql
 │
 ├── airflow_dags/
-│   └── gdi_pipeline_dag.py    # Airflow DAG orchestrating ETL, GE, dbt
+│   └── gdi_pipeline_dag.py    # Airflow DAG
+│
+├── tests/
+│   ├── conftest.py            # Pytest fixtures
+│   ├── test_worldbank.py      # ETL tests
+│   └── test_validation.py     # Validation tests
 │
 ├── docs/
-│   └── architecture.png       # High level architecture diagram
+│   └── architecture.png       # Architecture diagram
 │
 ├── db/
-│   └── schema.sql             # Database schema and initial DDL
+│   └── schema.sql             # Database DDL
 │
-├── docker-compose.yml         # PostgreSQL container configuration
+├── . github/
+│   └── workflows/
+│       └── ci. yml             # GitHub Actions CI
+│
+├── docker-compose.yml         # PostgreSQL container
 ├── requirements.txt           # Python dependencies
-├── .env.example               # Example environment variables
-├── .gitignore                 # Git ignore rules
-├── LICENSE                    # MIT license
-└── README.md                  # Project documentation
+├── . env. example               # Environment template
+├── . gitignore
+├── LICENSE
+└── README.md
 ```
 
 ---
 
 ## Installation and Setup
+
+### Prerequisites
+
+- Python 3. 11+
+- Docker & Docker Compose
+- Git
 
 ### 1. Clone the repository
 
@@ -188,17 +242,19 @@ git clone https://github.com/sezg0002/atlas-data-platform.git
 cd atlas-data-platform
 ```
 
-### 2. Create and activate a virtual environment
+### 2. Create and activate virtual environment
 
 ```bash
 python -m venv venv
-# On macOS / Linux
+
+# macOS / Linux
 source venv/bin/activate
-# On Windows
+
+# Windows
 venv\Scripts\activate
 ```
 
-### 3. Install Python dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -206,172 +262,317 @@ pip install -r requirements.txt
 
 ### 4. Configure environment variables
 
-Copy the environment template and update values if needed:
-
 ```bash
 cp .env.example .env
 ```
 
-Minimum variables to check:
+Edit `.env` with your configuration:
 
-```text
+```env
 POSTGRES_USER=gdi_user
 POSTGRES_PASSWORD=gdi_password
 POSTGRES_DB=gdi_db
 POSTGRES_HOST=localhost
-POSTGRES_PORT=5432      # or your mapped port from Docker
+POSTGRES_PORT=5432
 ```
 
-### 5. Start PostgreSQL with Docker
+### 5.  Start PostgreSQL
 
 ```bash
 docker compose up -d
-```
 
-Verify that the container is running:
-
-```bash
+# Verify container is running
 docker ps
 ```
 
-You should see a container named `gdi-postgres`.
+### 6. Initialize database schema
 
-### 6. Run the ETL pipeline
+```bash
+# Connect to PostgreSQL and run schema
+docker exec -i gdi-postgres psql -U gdi_user -d gdi_db < db/schema.sql
+```
+
+### 7. Run ETL pipeline
 
 ```bash
 python -m etl.run_etl
 ```
 
-This will:
-
-- Call external APIs (World Bank, Yahoo Finance).  
-- Normalize and structure the data.  
-- Load dimensions and fact tables into PostgreSQL.
-
-### 7. Launch the Streamlit dashboard
+### 8. Launch dashboard
 
 ```bash
 streamlit run dashboard/app.py
 ```
 
-The dashboard will be available at:
+Access the dashboard at: **http://localhost:8501**
 
-```text
-http://localhost:8501
+---
+
+## Usage Guide
+
+### Dashboard Navigation
+
+The dashboard is organized into three tabs:
+
+| Tab | Description |
+|-----|-------------|
+| 📊 **Vue d'ensemble** | Historical trends and descriptive statistics |
+| 📈 **Analyse détaillée** | Year-over-year growth analysis |
+| 🔮 **Prévisions** | Prophet forecasting with model metrics |
+
+### Sidebar Filters
+
+- **Domaine**: Choose between Economy or Finance data
+- **Pays**: Select country (for economic data)
+- **Actions**: Refresh data or clear cache
+
+### Forecast Options
+
+- **Années à prévoir**: Adjust forecast horizon (1-10 years)
+- **Composants**: View extracted trend component
+- **Métriques**: Display model performance (MAE, RMSE, MAPE)
+
+---
+
+## dbt Models
+
+### Staging Layer
+
+| Model | Description |
+|-------|-------------|
+| `stg_fact_indicator` | Cleaned fact table with joined dimensions |
+| `stg_dim_country` | Country dimension with region mapping |
+
+### Marts Layer
+
+| Model | Description |
+|-------|-------------|
+| `agg_kpi_by_country` | KPIs by country with YoY growth |
+| `agg_yearly_trends` | Yearly aggregated statistics |
+| `agg_country_comparison` | Country comparison with CAGR |
+
+### Running dbt
+
+```bash
+# Run all models
+dbt run --project-dir dbt_project
+
+# Run tests
+dbt test --project-dir dbt_project
+
+# Generate documentation
+dbt docs generate --project-dir dbt_project
+dbt docs serve --project-dir dbt_project
+```
+
+---
+
+## Data Quality
+
+### Validation Checks
+
+The enhanced Great Expectations suite includes:
+
+| Category | Checks |
+|----------|--------|
+| **Null Checks** | value, indicator_code, country_code, date |
+| **Value Constraints** | GDP between 0 and 500,000 |
+| **Valid Values** | domain, country_code, unit |
+| **Referential Integrity** | fact → dim_country, fact → dim_date |
+| **Data Freshness** | Data not older than 365 days |
+| **Uniqueness** | Primary keys, composite keys |
+
+### Running Validations
+
+```bash
+python -m validation.run_ge_checks
+```
+
+---
+
+## Machine Learning
+
+### Prophet Forecaster
+
+The enhanced ML module provides:
+
+- **Cross-validation** with configurable parameters
+- **Performance metrics**: MAE, RMSE, MAPE, Coverage
+- **Multi-country forecasting** capability
+- **Trend component** extraction and visualization
+
+### Usage
+
+```python
+from ml.forecast_gdp import GDPForecaster
+
+# Single country forecast
+forecaster = GDPForecaster("FRA")
+forecaster.train()
+forecast = forecaster.predict(periods=5)
+metrics = forecaster.evaluate()
+
+# Multi-country comparison
+from ml.forecast_gdp import compare_countries
+comparison = compare_countries(["FRA", "USA", "DEU"])
+```
+
+---
+
+## CI/CD
+
+### GitHub Actions Workflow
+
+The project includes a CI pipeline (`.github/workflows/ci.yml`) that:
+
+1. ✅ Runs on push and pull requests to `main`
+2. ✅ Sets up Python 3.11
+3. ✅ Installs dependencies
+4. ✅ Runs pytest tests
+5. ✅ Checks code style with ruff
+
+### Running Tests Locally
+
+```bash
+# Install test dependencies
+pip install pytest pytest-cov ruff
+
+# Run tests
+pytest tests/ -v
+
+# Run linter
+ruff check . 
 ```
 
 ---
 
 ## Airflow Integration
 
-The project includes an example DAG that chains the main steps of the platform:
+### DAG Overview
 
-- Run ETL (Python)  
-- Run Great Expectations validation  
-- Run dbt models
+The `gdi_full_pipeline` DAG orchestrates:
 
-DAG file: `airflow_dags/gdi_pipeline_dag.py`.
+```
+run_etl → run_ge_validation → run_dbt_models
+```
 
-To run Airflow locally (optional, requires Airflow installation and configuration):
+### Running Airflow
 
 ```bash
+# Initialize Airflow (first time)
+airflow db init
+
+# Start Airflow
 airflow standalone
+
+# Access UI at http://localhost:8080
 ```
-
-Then open the Airflow UI at:
-
-```text
-http://localhost:8080
-```
-
-From there, you can enable and trigger the `gdi_full_pipeline` DAG.
 
 ---
 
-## dbt Workflow
+## Development
 
-The dbt project (`dbt_project/`) defines staging and aggregated models on top of the base warehouse tables.
-
-Typical commands (run from inside `dbt_project` or with `--project-dir`):
+### Project Commands
 
 ```bash
-# Run all dbt models
+# Start everything
+docker compose up -d
+python -m etl.run_etl
+streamlit run dashboard/app.py
+
+# Run validations
+python -m validation.run_ge_checks
+
+# Run dbt
 dbt run --project-dir dbt_project
 
-# Run tests (if defined)
-dbt test --project-dir dbt_project
+# Run tests
+pytest tests/ -v
+
+# Lint code
+ruff check .  --fix
 ```
 
-Make sure your `profiles.yml` is configured correctly for the PostgreSQL instance (an example `profiles.yml.example` is provided in the project).
+### Code Style
 
----
-
-## Data Quality with Great Expectations
-
-The script `validation/run_ge_checks.py` runs a minimal set of data quality checks using Great Expectations.
-
-Example execution:
-
-```bash
-python validation/run_ge_checks.py
-```
-
-The validations currently verify:
-
-- No null values for key fields (value, indicator_code, country_code, date).  
-- Basic numeric constraints on value columns.
-
-If a check fails, the script raises an exception and the pipeline can be configured to stop.
-
----
-
-## Machine Learning Forecasting
-
-The module `ml/forecast_gdp.py` uses Prophet to train a time-series forecasting model on historical GDP data by country. The forecast is then displayed in the Streamlit dashboard.
-
-Key characteristics:
-
-- Univariate time-series forecasting on GDP per country.  
-- Configurable forecast horizon (number of future periods).  
-- Confidence intervals displayed on the chart.  
-
-The forecasting is integrated into the dashboard, allowing the user to select a country and view both historical and predicted GDP values.
-
----
-
-## Development Workflow
-
-Suggested local development workflow:
-
-1. Start PostgreSQL via Docker.  
-2. Run ETL to refresh data.  
-3. Execute Great Expectations checks.  
-4. Run dbt models to update analytics views.  
-5. Start the Streamlit app to inspect results.  
-6. Optionally schedule the above steps through Airflow for automation.
-
-This mirrors how a small but complete data platform would operate in a professional context.
+The project follows:
+- PEP 8 conventions
+- Type hints where applicable
+- Docstrings for public functions
+- Modular component architecture
 
 ---
 
 ## Future Enhancements
 
-Planned or possible extensions:
+| Priority | Enhancement |
+|----------|-------------|
+| 🔴 High | Deploy to cloud (AWS/GCP/Azure) |
+| 🔴 High | Add more data sources |
+| 🟡 Medium | Implement Kafka for streaming |
+| 🟡 Medium | Add FastAPI for metrics API |
+| 🟡 Medium | Advanced ML models (anomaly detection) |
+| 🟢 Low | Role-based access control |
+| 🟢 Low | Email/Slack alerting |
 
-- Integration with Kafka or another streaming platform for near real-time ingestion.  
-- Deployment to a cloud environment (AWS, GCP, Azure) with managed PostgreSQL and container orchestration.  
-- Automated CI/CD with GitHub Actions (tests, linting, dbt runs).  
-- Additional Great Expectations suites and documentation.  
-- Advanced ML models (for example anomaly detection on financial time series).  
-- Exposing selected metrics through an external API (FastAPI).  
-- Role-based access control and authentication for the dashboard.
+---
+
+## Troubleshooting
+
+### Database Connection Error
+
+```bash
+# Check if Docker is running
+docker ps
+
+# Restart PostgreSQL
+docker compose down
+docker compose up -d
+
+# Check logs
+docker compose logs postgres
+```
+
+### Import Errors
+
+```bash
+# Add project to PYTHONPATH
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+
+# Or on Windows
+set PYTHONPATH=%PYTHONPATH%;%CD%
+```
+
+### Prophet Installation Issues
+
+```bash
+# Install Prophet (may require additional dependencies)
+pip install prophet
+
+# On some systems, you may need:
+conda install -c conda-forge prophet
+```
 
 ---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.  See the [LICENSE](LICENSE) file for details.
 
 ---
 
-Created and maintained by **Harun SEZGIN**.
+## Acknowledgments
+
+- [World Bank Open Data](https://data.worldbank.org/)
+- [Yahoo Finance](https://finance.yahoo.com/)
+- [Streamlit](https://streamlit.io/)
+- [dbt](https://www.getdbt. com/)
+- [Prophet](https://facebook. github.io/prophet/)
+
+---
+
+<p align="center">
+  Created and maintained by <strong>Harun SEZGIN</strong>
+  <br>
+  ⭐ Star this repo if you find it useful! 
+</p>
