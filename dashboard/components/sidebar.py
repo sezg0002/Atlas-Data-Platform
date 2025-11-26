@@ -16,16 +16,15 @@ DEFAULTS = {
 }
 
 DOMAIN_LABELS = {
-    "economy": "Économie",
+    "economy": "Economy",
     "finance": "Finance",
 }
 
 
 def render_sidebar() -> Tuple[str, Optional[str]]:
     """Render sidebar with filters.  Returns (domain, country_code)."""
-
     with st.sidebar:
-        st.markdown(
+        st. markdown(
             """
             <div style='text-align: center; padding: 0.5rem 0 1rem 0;'>
                 <span style='font-size: 2rem;'>🌍</span>
@@ -35,41 +34,41 @@ def render_sidebar() -> Tuple[str, Optional[str]]:
             unsafe_allow_html=True
         )
 
-        st.header("🎛️ Filtres")
+        st.header("🎛️ Filters")
 
         domain = st.selectbox(
-            "Domaine",
+            "Domain",
             options=DEFAULTS["domains"],
             format_func=lambda x: DOMAIN_LABELS.get(x, x.capitalize()),
-            help="Sélectionnez le type de données"
+            help="Select the data type"
         )
 
         country_code = None
         if domain == "economy":
             countries = get_available_countries()
-            country_code = st.selectbox("Pays", options=countries)
+            country_code = st.selectbox("Country", options=countries)
         else:
-            st.caption("📊 Données financières globales (SPY).")
+            st.caption("📊 Global financial data (SPY).")
 
         st.divider()
 
         # Data summary
         summary = get_data_summary()
         if summary:
-            st.markdown("**📈 Résumé**")
-            col1, col2 = st.columns(2)
+            st.markdown("**📈 Summary**")
+            col1, col2 = st. columns(2)
             with col1:
-                st.caption(f"📁 {summary.get('total_records', 0):,}")
+                st.caption(f"📁 {summary. get('total_records', 0):,}")
             with col2:
-                st.caption(f"🌍 {summary.get('countries_count', 0)} pays")
+                st.caption(f"🌍 {summary.get('countries_count', 0)} countries")
 
         st.divider()
 
         # Refresh button
-        if st.button("🔄 Rafraîchir", use_container_width=True):
+        if st.button("🔄 Refresh", use_container_width=True):
             clear_cache()
             st.rerun()
 
-        st.info("💡 Lancez l'ETL si données vides.", icon="ℹ️")
+        st.info("💡 Run ETL if data is empty.", icon="ℹ️")
 
     return domain, country_code

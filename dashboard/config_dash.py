@@ -31,6 +31,6 @@ DEFAULTS = {
 }
 
 DOMAIN_LABELS = {
-    "economy": "Économie",
+    "economy": "Economy",
     "finance": "Finance",
 }

@@ -32,16 +32,16 @@ def render_kpis(df: pd.DataFrame):
 
     with col1:
         st.metric(
-            label="📊 Dernière valeur",
+            label="📊 Latest Value",
             value=format_number(latest),
             delta=format_percentage(delta)
         )
 
     with col2:
-        st.metric(label="📈 Moyenne", value=format_number(values.mean()))
+        st.metric(label="📈 Average", value=format_number(values.mean()))
 
     with col3:
-        st.metric(label="⬇️ Minimum", value=format_number(values.min()))
+        st. metric(label="⬇️ Minimum", value=format_number(values.min()))
 
     with col4:
-        st.metric(label="⬆️ Maximum", value=format_number(values.max()))
+        st. metric(label="⬆️ Maximum", value=format_number(values.max()))

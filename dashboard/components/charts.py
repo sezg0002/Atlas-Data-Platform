@@ -23,23 +23,23 @@ CHART_CONFIG = {
 def render_historical_chart(df: pd.DataFrame, domain: str, country_code: Optional[str] = None):
     """Render historical trends chart."""
     if df.empty:
-        st.warning("Pas de données à afficher.")
+        st.warning("No data to display.")
         return
 
-    st.subheader("📈 Évolution historique")
+    st.subheader("📈 Historical Trends")
 
     fig = px.line(
         df,
         x="date",
         y="value",
-        title=f"Tendances {domain.capitalize()} - {country_code or 'Global'}",
+        title=f"{domain.capitalize()} Trends - {country_code or 'Global'}",
         color_discrete_sequence=[COLORS["primary"]],
         markers=True
     )
 
     fig.update_layout(
         xaxis_title="Date",
-        yaxis_title=df["unit"].iloc[0] if "unit" in df.columns else "Valeur",
+        yaxis_title=df["unit"].iloc[0] if "unit" in df.columns else "Value",
         title_x=0.5,
         plot_bgcolor=CHART_CONFIG["plot_bgcolor"],
         paper_bgcolor=CHART_CONFIG["paper_bgcolor"],
@@ -54,48 +54,35 @@ def render_historical_chart(df: pd.DataFrame, domain: str, country_code: Optiona
 
 def render_yoy_growth_chart(df: pd.DataFrame, country_code: str):
     """Render year-over-year growth chart."""
-    if df.empty or len(df) < 2:
+    if df.empty:
+        st.warning("No data to display.")
         return
 
-    df_copy = df.copy()
+    st.subheader("📊 Year-over-Year Growth")
 
-    # Convertir 'value' en numérique pour éviter les erreurs de type
-    df_copy["value"] = pd.to_numeric(df_copy["value"], errors="coerce")
-
-    df_copy["year"] = pd.to_datetime(df_copy["date"]).dt.year
-    df_copy["prev_value"] = df_copy["value"].shift(1)
-    df_copy["yoy_growth"] = (
-            (df_copy["value"] - df_copy["prev_value"]) / df_copy["prev_value"] * 100
-    )
-    df_copy = df_copy.dropna(subset=["yoy_growth"])
-
-    if df_copy.empty:
-        return
-
-    st.subheader("📊 Croissance annuelle")
-
-    df_copy["color"] = df_copy["yoy_growth"].apply(
-        lambda x: COLORS["success"] if x >= 0 else COLORS["danger"]
-    )
+    df_yearly = df.copy()
+    df_yearly["year"] = pd.to_datetime(df_yearly["date"]).dt.year
+    yearly_data = df_yearly.groupby("year")["value"].mean().reset_index()
+    yearly_data["yoy_growth"] = yearly_data["value"].pct_change() * 100
 
     fig = go.Figure()
+
     fig.add_trace(go.Bar(
-        x=df_copy["year"],
-        y=df_copy["yoy_growth"],
-        marker_color=df_copy["color"],
-        text=df_copy["yoy_growth"].round(1).astype(str) + "%",  # Maintenant ça marchera
+        x=yearly_data["year"],
+        y=yearly_data["yoy_growth"],
+        marker_color=[COLORS["success"] if v >= 0 else COLORS["danger"] for v in yearly_data["yoy_growth"]],
+        text=[f"{v:.1f}%" if pd.notna(v) else "" for v in yearly_data["yoy_growth"]],
         textposition="outside"
     ))
 
     fig.update_layout(
-        title=f"Croissance YoY - {country_code}",
+        title=f"YoY Growth - {country_code}",
+        xaxis_title="Year",
+        yaxis_title="Growth (%)",
         title_x=0.5,
-        xaxis_title="Année",
-        yaxis_title="Croissance (%)",
         plot_bgcolor=CHART_CONFIG["plot_bgcolor"],
         paper_bgcolor=CHART_CONFIG["paper_bgcolor"],
+        font=dict(color=CHART_CONFIG["font_color"]),
     )
-
-    fig.add_hline(y=0, line_dash="dash", line_color=COLORS["muted"])
 
     st.plotly_chart(fig, use_container_width=True)

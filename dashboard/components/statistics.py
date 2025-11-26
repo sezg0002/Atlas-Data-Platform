@@ -19,36 +19,36 @@ def render_statistics(df: pd.DataFrame):
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("📊 Statistiques")
-        stats = df["value"].describe().to_frame().T
+        st.subheader("📊 Statistics")
+        stats = df["value"].describe(). to_frame().T
 
-        # Renommer les colonnes dynamiquement selon ce que describe() retourne
+        # Rename columns dynamically based on what describe() returns
         column_names = {
             "count": "N",
-            "mean": "Moyenne",
-            "std": "Écart-type",
+            "mean": "Mean",
+            "std": "Std Dev",
             "min": "Min",
             "25%": "25%",
-            "50%": "Médiane",
+            "50%": "Median",
             "75%": "75%",
             "max": "Max"
         }
-        stats.columns = [column_names.get(col, col) for col in stats.columns]
+        stats.columns = [column_names. get(col, col) for col in stats.columns]
         st.dataframe(stats, use_container_width=True)
 
     with col2:
-        st.subheader("📅 Informations")
-        st.write(f"**Début** : {format_date(df['date'].min())}")
-        st.write(f"**Fin** : {format_date(df['date'].max())}")
-        st.write(f"**Observations** : {len(df)}")
+        st. subheader("📅 Information")
+        st.write(f"**Start**: {format_date(df['date'].min())}")
+        st.write(f"**End**: {format_date(df['date'].max())}")
+        st.write(f"**Observations**: {len(df)}")
 
     # Raw data
-    with st.expander("📋 Données brutes"):
-        st.dataframe(df.tail(20), use_container_width=True)
+    with st.expander("📋 Raw Data"):
+        st.dataframe(df. tail(20), use_container_width=True)
 
-        csv = df.to_csv(index=False).encode('utf-8')
-        st.download_button(
-            label="⬇️ Télécharger CSV",
+        csv = df.to_csv(index=False). encode('utf-8')
+        st. download_button(
+            label="⬇️ Download CSV",
             data=csv,
             file_name="atlas_data.csv",
             mime="text/csv"

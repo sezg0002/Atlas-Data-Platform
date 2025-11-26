@@ -6,7 +6,7 @@ import os
 import sys
 
 # Setup paths BEFORE any imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os. path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
@@ -17,7 +17,7 @@ from components.header import render_header, render_connection_error, render_no_
 from components.sidebar import render_sidebar
 from components.kpis import render_kpis
 from components.charts import render_historical_chart, render_yoy_growth_chart
-from components.statistics import render_statistics
+from components. statistics import render_statistics
 from components.forecast import render_forecast_section
 from components.footer import render_footer
 
@@ -46,9 +46,9 @@ def main():
     st.markdown("---")
 
     tab_overview, tab_analysis, tab_forecast = st.tabs([
-        "📊 Vue d'ensemble",
-        "📈 Analyse détaillée",
-        "🔮 Prévisions"
+        "📊 Overview",
+        "📈 Detailed Analysis",
+        "🔮 Forecasts"
     ])
 
     with tab_overview:
@@ -59,13 +59,13 @@ def main():
         if domain == "economy" and country_code:
             render_yoy_growth_chart(df, country_code)
         else:
-            st.info("💡 Sélectionnez un pays pour voir l'analyse détaillée.")
+            st.info("💡 Select a country to view detailed analysis.")
 
     with tab_forecast:
         if domain == "economy" and country_code:
             render_forecast_section(country_code, df)
         else:
-            st.info("🔮 Les prévisions sont disponibles pour les données économiques.")
+            st.info("🔮 Forecasts are available for economic data.")
 
     render_footer()
 
