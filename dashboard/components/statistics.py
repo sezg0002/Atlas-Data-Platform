@@ -21,7 +21,19 @@ def render_statistics(df: pd.DataFrame):
     with col1:
         st.subheader("📊 Statistiques")
         stats = df["value"].describe().to_frame().T
-        stats.columns = ["N", "Moyenne", "Écart-type", "Min", "25%", "Médiane", "75%", "Max"]
+
+        # Renommer les colonnes dynamiquement selon ce que describe() retourne
+        column_names = {
+            "count": "N",
+            "mean": "Moyenne",
+            "std": "Écart-type",
+            "min": "Min",
+            "25%": "25%",
+            "50%": "Médiane",
+            "75%": "75%",
+            "max": "Max"
+        }
+        stats.columns = [column_names.get(col, col) for col in stats.columns]
         st.dataframe(stats, use_container_width=True)
 
     with col2:

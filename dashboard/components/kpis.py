@@ -8,7 +8,7 @@ def format_number(value: float, decimals: int = 0) -> str:
     """Format number with thousand separators."""
     if pd.isna(value):
         return "N/A"
-    return f"{value:,. {decimals}f}"
+    return f"{value:,.{decimals}f}"
 
 
 def format_percentage(value: float, decimals: int = 1) -> str:

@@ -58,6 +58,10 @@ def render_yoy_growth_chart(df: pd.DataFrame, country_code: str):
         return
 
     df_copy = df.copy()
+
+    # Convertir 'value' en numérique pour éviter les erreurs de type
+    df_copy["value"] = pd.to_numeric(df_copy["value"], errors="coerce")
+
     df_copy["year"] = pd.to_datetime(df_copy["date"]).dt.year
     df_copy["prev_value"] = df_copy["value"].shift(1)
     df_copy["yoy_growth"] = (
@@ -79,17 +83,17 @@ def render_yoy_growth_chart(df: pd.DataFrame, country_code: str):
         x=df_copy["year"],
         y=df_copy["yoy_growth"],
         marker_color=df_copy["color"],
-        text=df_copy["yoy_growth"].round(1).astype(str) + "%",
+        text=df_copy["yoy_growth"].round(1).astype(str) + "%",  # Maintenant ça marchera
         textposition="outside"
     ))
 
     fig.update_layout(
         title=f"Croissance YoY - {country_code}",
         title_x=0.5,
-    xaxis_title = "Année",
-    yaxis_title = "Croissance (%)",
-    plot_bgcolor = CHART_CONFIG["plot_bgcolor"],
-    paper_bgcolor = CHART_CONFIG["paper_bgcolor"],
+        xaxis_title="Année",
+        yaxis_title="Croissance (%)",
+        plot_bgcolor=CHART_CONFIG["plot_bgcolor"],
+        paper_bgcolor=CHART_CONFIG["paper_bgcolor"],
     )
 
     fig.add_hline(y=0, line_dash="dash", line_color=COLORS["muted"])

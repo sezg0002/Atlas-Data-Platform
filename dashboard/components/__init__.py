@@ -1,9 +1,9 @@
 """Dashboard components."""
 
-from ..components.header import render_header, render_connection_error, render_no_data_warning
-from ..components.sidebar import render_sidebar
-from ..components.kpis import render_kpis
-from ..components.charts import render_historical_chart, render_yoy_growth_chart
-from ..components.statistics import render_statistics
-from ..components.forecast import render_forecast_section
-from ..components.footer import render_footer
+from .header import render_header, render_connection_error, render_no_data_warning
+from .sidebar import render_sidebar
+from .kpis import render_kpis
+from .charts import render_historical_chart, render_yoy_growth_chart
+from .statistics import render_statistics
+from .forecast import render_forecast_section
+from .footer import render_footer

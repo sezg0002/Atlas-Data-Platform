@@ -3,7 +3,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.insert(0, os. path.dirname(os.path. dirname(os.path. dirname(os.path. abspath(__file__)))))
 
 import streamlit as st
 import pandas as pd
@@ -24,7 +24,7 @@ CHART_CONFIG = {
 def render_forecast_section(country_code: str, df: pd.DataFrame):
     """Render the forecast section with Prophet."""
     st.markdown("---")
-    st.subheader("🔮 Prévisions GDP (Prophet)")
+    st. subheader("🔮 Prévisions GDP (Prophet)")
 
     col1, col2 = st.columns([2, 1])
 
@@ -37,7 +37,7 @@ def render_forecast_section(country_code: str, df: pd.DataFrame):
     try:
         from ml.forecast_gdp import forecast_gdp
 
-        with st.spinner("🔄 Calcul des prévisions..."):
+        with st. spinner("🔄 Calcul des prévisions..."):
             forecast = forecast_gdp(country_code, periods)
 
         _render_forecast_chart(forecast, country_code, df)
@@ -49,12 +49,17 @@ def render_forecast_section(country_code: str, df: pd.DataFrame):
         st.error(f"❌ Erreur: {e}")
 
 
-def _render_forecast_chart(forecast: pd.DataFrame, country_code: str, historical_df: pd.DataFrame):
+def _render_forecast_chart(forecast: pd. DataFrame, country_code: str, historical_df: pd.DataFrame):
     """Render forecast chart."""
-    fig = go.Figure()
+    fig = go. Figure()
+
+    # S'assurer que les dates sont en datetime64
+    historical_df = historical_df.copy()
+    historical_df["date"] = pd. to_datetime(historical_df["date"])
+    forecast["ds"] = pd.to_datetime(forecast["ds"])
 
     # Historical
-    fig.add_trace(go.Scatter(
+    fig. add_trace(go.Scatter(
         x=historical_df["date"],
         y=historical_df["value"],
         mode="lines+markers",
@@ -62,8 +67,9 @@ def _render_forecast_chart(forecast: pd.DataFrame, country_code: str, historical
         line=dict(color=COLORS["primary"], width=2)
     ))
 
-    # Forecast
-    forecast_only = forecast[forecast["ds"] > historical_df["date"].max()]
+    # Forecast - comparaison avec le même type datetime
+    max_date = historical_df["date"].max()
+    forecast_only = forecast[forecast["ds"] > max_date]
 
     fig.add_trace(go.Scatter(
         x=forecast_only["ds"],
@@ -74,7 +80,7 @@ def _render_forecast_chart(forecast: pd.DataFrame, country_code: str, historical
     ))
 
     # Confidence interval
-    fig.add_trace(go.Scatter(
+    fig.add_trace(go. Scatter(
         x=pd.concat([forecast_only["ds"], forecast_only["ds"][::-1]]),
         y=pd.concat([forecast_only["yhat_upper"], forecast_only["yhat_lower"][::-1]]),
         fill="toself",
@@ -87,12 +93,12 @@ def _render_forecast_chart(forecast: pd.DataFrame, country_code: str, historical
     fig.update_layout(
         title=f"Prévision GDP - {country_code}",
         title_x=0.5,
-    xaxis_title = "Année",
-    yaxis_title = "GDP per capita (USD)",
-    plot_bgcolor = CHART_CONFIG["plot_bgcolor"],
-    paper_bgcolor = CHART_CONFIG["paper_bgcolor"],
-    hovermode = "x unified",
-    legend = dict(orientation="h", yanchor="bottom", y=1.02, x=1, xanchor="right")
+        xaxis_title="Année",
+        yaxis_title="GDP per capita (USD)",
+        plot_bgcolor=CHART_CONFIG["plot_bgcolor"],
+        paper_bgcolor=CHART_CONFIG["paper_bgcolor"],
+        hovermode="x unified",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=1, xanchor="right")
     )
 
     st.plotly_chart(fig, use_container_width=True)
@@ -102,10 +108,10 @@ def _render_forecast_table(forecast: pd.DataFrame):
     """Render forecast table."""
     with st.expander("📋 Tableau des prévisions"):
         display_df = forecast[["ds", "yhat", "yhat_lower", "yhat_upper"]].tail(10).copy()
-        display_df.columns = ["Année", "Prévision", "Min", "Max"]
-        display_df["Année"] = display_df["Année"].dt.year
+        display_df. columns = ["Année", "Prévision", "Min", "Max"]
+        display_df["Année"] = display_df["Année"]. dt.year
 
         for col in ["Prévision", "Min", "Max"]:
-            display_df[col] = display_df[col].apply(lambda x: f"{x:,. 0f}")
+            display_df[col] = display_df[col].apply(lambda x: f"{x:,.0f}")
 
         st.dataframe(display_df, use_container_width=True, hide_index=True)

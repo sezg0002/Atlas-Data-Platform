@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import streamlit as st
 from typing import Tuple, Optional
 
-from ..database import get_available_countries, get_data_summary, clear_cache
+from database import get_available_countries, get_data_summary, clear_cache
 
 DEFAULTS = {
     "countries": ["FRA", "USA", "DEU"],
