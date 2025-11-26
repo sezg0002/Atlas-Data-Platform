@@ -1,5 +1,10 @@
 """Database connection and queries."""
 
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pandas as pd
 import streamlit as st
 from sqlalchemy import create_engine, text
@@ -13,13 +18,8 @@ from config_dash import DEFAULTS
 def get_engine():
     """Create database engine with connection pooling."""
     try:
-        import sys
-        import os
-        sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '. .')))
         from etl.config import DATABASE_URL
-
         engine = create_engine(DATABASE_URL, pool_pre_ping=True)
-        # Test connection
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
         return engine
@@ -50,7 +50,7 @@ def load_domain_data(domain: str, country_code: Optional[str] = None) -> pd.Data
         dc.country_code
     FROM fact_indicator fi
     JOIN dim_date dd ON fi.date_id = dd.date_id
-    JOIN dim_country dc ON fi.country_id = dc. country_id
+    JOIN dim_country dc ON fi.country_id = dc.country_id
     JOIN dim_domain ddom ON fi.domain_id = ddom.domain_id
     WHERE ddom.domain_name = :domain
     """
@@ -98,18 +98,9 @@ def get_data_summary() -> dict:
 
     try:
         with engine.connect() as conn:
-            # Total records
             total = conn.execute(text("SELECT COUNT(*) FROM fact_indicator")).scalar()
-
-            # Date range
-            dates = conn.execute(
-                text("SELECT MIN(date), MAX(date) FROM dim_date")
-            ).fetchone()
-
-            # Countries count
-            countries = conn.execute(
-                text("SELECT COUNT(DISTINCT country_code) FROM dim_country")
-            ).scalar()
+            dates = conn.execute(text("SELECT MIN(date), MAX(date) FROM dim_date")).fetchone()
+            countries = conn.execute(text("SELECT COUNT(DISTINCT country_code) FROM dim_country")).scalar()
 
             return {
                 "total_records": total,

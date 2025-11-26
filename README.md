@@ -1,13 +1,15 @@
 # Atlas Data Platform
 
-[![Python](https://img. shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+
+[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-Data%20App-FF4B4B.svg)](https://streamlit.io/)
-[![PostgreSQL](https://img. shields.io/badge/PostgreSQL-Database-316192.svg)](https://www.postgresql.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-316192.svg)](https://www.postgresql.org/)
 [![Airflow](https://img.shields.io/badge/Apache%20Airflow-Orchestration-017CEE.svg)](https://airflow.apache.org/)
 [![dbt](https://img.shields.io/badge/dbt-Analytics%20Modeling-FF694B.svg)](https://www.getdbt.com/)
-[![Great Expectations](https://img. shields.io/badge/Great%20Expectations-Data%20Quality-FFD700.svg)](https://greatexpectations.io/)
-[![Prophet](https://img. shields.io/badge/Prophet-Forecasting-8A2BE2.svg)](https://facebook. github.io/prophet/)
-[![License](https://img. shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Great Expectations](https://img.shields.io/badge/Great%20Expectations-Data%20Quality-FFD700.svg)](https://greatexpectations.io/)
+[![Prophet](https://img.shields.io/badge/Prophet-Forecasting-8A2BE2.svg)](https://facebook.github.io/prophet/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 
 ---
 
@@ -15,7 +17,7 @@
 
 **Harun SEZGIN**  
 Data Engineering & Analytics Enthusiast  
-[LinkedIn](https://www. linkedin.com/in/harun-sezgin-925a2924b/) · [GitHub](https://github.com/sezg0002)
+[LinkedIn](https://www.linkedin.com/in/harun-sezgin-925a2924b/) · [GitHub](https://github.com/sezg0002)
 
 ---
 
@@ -566,8 +568,8 @@ This project is licensed under the MIT License.  See the [LICENSE](LICENSE) file
 - [World Bank Open Data](https://data.worldbank.org/)
 - [Yahoo Finance](https://finance.yahoo.com/)
 - [Streamlit](https://streamlit.io/)
-- [dbt](https://www.getdbt. com/)
-- [Prophet](https://facebook. github.io/prophet/)
+- [dbt](https://www.getdbt.com/)
+- [Prophet](https://facebook.github.io/prophet/)
 
 ---
 

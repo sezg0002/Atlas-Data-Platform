@@ -1,13 +1,11 @@
 """Configuration and constants for the dashboard."""
 
-# Page configuration
 PAGE_CONFIG = {
     "page_title": "Atlas Data Platform",
     "page_icon": "🌍",
     "layout": "wide",
 }
 
-# Theme colors
 COLORS = {
     "primary": "#2E86DE",
     "secondary": "#5D6D7E",
@@ -19,14 +17,12 @@ COLORS = {
     "muted": "#95A5A6",
 }
 
-# Chart configuration
 CHART_CONFIG = {
     "plot_bgcolor": COLORS["light"],
     "paper_bgcolor": COLORS["light"],
     "font_color": COLORS["dark"],
 }
 
-# Default values
 DEFAULTS = {
     "countries": ["FRA", "USA", "DEU"],
     "domains": ["economy", "finance"],
@@ -34,7 +30,6 @@ DEFAULTS = {
     "forecast_periods": 5,
 }
 
-# Domain labels (FR)
 DOMAIN_LABELS = {
     "economy": "Économie",
     "finance": "Finance",

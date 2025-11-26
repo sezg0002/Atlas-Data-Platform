@@ -4,15 +4,23 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from typing import Optional, List
-from ..config_dash import COLORS, CHART_CONFIG
+from typing import Optional
+
+COLORS = {
+    "primary": "#2E86DE",
+    "success": "#1E8449",
+    "danger": "#E74C3C",
+    "muted": "#95A5A6",
+}
+
+CHART_CONFIG = {
+    "plot_bgcolor": "#F9FBFD",
+    "paper_bgcolor": "#F9FBFD",
+    "font_color": "#2C3E50",
+}
 
 
-def render_historical_chart(
-        df: pd.DataFrame,
-        domain: str,
-        country_code: Optional[str] = None
-):
+def render_historical_chart(df: pd.DataFrame, domain: str, country_code: Optional[str] = None):
     """Render historical trends chart."""
     if df.empty:
         st.warning("Pas de données à afficher.")
@@ -39,65 +47,7 @@ def render_historical_chart(
         hovermode="x unified"
     )
 
-    # Add range slider
     fig.update_xaxes(rangeslider_visible=True, rangeslider_thickness=0.05)
-
-    st.plotly_chart(fig, use_container_width=True)
-
-
-def render_comparison_chart(
-        df: pd.DataFrame,
-        group_by: str = "country_name",
-        title: str = "Comparaison"
-):
-    """Render comparison chart across groups."""
-    if df.empty or group_by not in df.columns:
-        return
-
-    fig = px.line(
-        df,
-        x="date",
-        y="value",
-        color=group_by,
-        title=title,
-        markers=True
-    )
-
-    fig.update_layout(
-        xaxis_title="Date",
-        yaxis_title="Valeur",
-        title_x=0.5,
-    plot_bgcolor = CHART_CONFIG["plot_bgcolor"],
-    paper_bgcolor = CHART_CONFIG["paper_bgcolor"],
-    legend_title = group_by.replace("_", " ").title()
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
-
-def render_bar_chart(
-        df: pd.DataFrame,
-        x: str,
-        y: str,
-        title: str = "Distribution"
-):
-    """Render bar chart."""
-    if df.empty:
-        return
-
-    fig = px.bar(
-        df,
-        x=x,
-        y=y,
-        title=title,
-        color_discrete_sequence=[COLORS["primary"]]
-    )
-
-    fig.update_layout(
-        title_x=0.5,
-    plot_bgcolor = CHART_CONFIG["plot_bgcolor"],
-    paper_bgcolor = CHART_CONFIG["paper_bgcolor"],
-    )
 
     st.plotly_chart(fig, use_container_width=True)
 
@@ -120,7 +70,6 @@ def render_yoy_growth_chart(df: pd.DataFrame, country_code: str):
 
     st.subheader("📊 Croissance annuelle")
 
-    # Color based on positive/negative
     df_copy["color"] = df_copy["yoy_growth"].apply(
         lambda x: COLORS["success"] if x >= 0 else COLORS["danger"]
     )
@@ -143,7 +92,6 @@ def render_yoy_growth_chart(df: pd.DataFrame, country_code: str):
     paper_bgcolor = CHART_CONFIG["paper_bgcolor"],
     )
 
-    # Add zero line
     fig.add_hline(y=0, line_dash="dash", line_color=COLORS["muted"])
 
     st.plotly_chart(fig, use_container_width=True)

@@ -1,3 +1,3 @@
-"""Utility functions for the dashboard."""
+"""Utility functions."""
 
-from .formatters import format_number, format_percentage, format_date
+from ..utils.formatters import format_number, format_percentage, format_date, format_currency

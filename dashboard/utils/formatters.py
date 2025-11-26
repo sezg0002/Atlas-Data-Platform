@@ -25,12 +25,12 @@ def format_date(date: Union[str, datetime, pd.Timestamp], fmt: str = "%Y-%m-%d")
         return "N/A"
     if isinstance(date, str):
         return date
-    return date.strftime(fmt)
+    return date. strftime(fmt)
 
 
 def format_currency(value: float, currency: str = "USD", decimals: int = 0) -> str:
     """Format value as currency."""
-    if pd.isna(value):
+    if pd. isna(value):
         return "N/A"
     symbols = {"USD": "$", "EUR": "€", "GBP": "£"}
     symbol = symbols.get(currency, currency)
