@@ -10,9 +10,11 @@ from typing import Tuple, Optional
 
 from database import get_available_countries, get_data_summary, clear_cache
 
+# Finance (global market data) is always available; the economy domain depends
+# on the World Bank ingestion, so finance is surfaced first as the default view.
 DEFAULTS = {
     "countries": ["FRA", "USA", "DEU"],
-    "domains": ["economy", "finance"],
+    "domains": ["finance", "economy"],
 }
 
 DOMAIN_LABELS = {

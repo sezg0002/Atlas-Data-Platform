@@ -4,8 +4,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-from prophet import Prophet
 from typing import Tuple
+
+try:
+    from prophet import Prophet
+    _HAS_PROPHET = True
+except Exception:  # optional dependency — dashboard works without it
+    Prophet = None
+    _HAS_PROPHET = False
 
 COLORS = {
     "primary": "#2E86DE",
@@ -22,7 +28,14 @@ CHART_CONFIG = {
 
 def render_forecast_section(country_code: str, df: pd.DataFrame):
     """Render forecast section with Prophet."""
-    st.subheader("🔮 GDP Forecast with Prophet")
+    st.subheader("🔮 Forecast with Prophet")
+
+    if not _HAS_PROPHET:
+        st.info(
+            "Forecasting module requires Prophet — install it with "
+            "`pip install prophet` to enable time-series forecasting."
+        )
+        return
 
     col1, col2 = st.columns([3, 1])
 
